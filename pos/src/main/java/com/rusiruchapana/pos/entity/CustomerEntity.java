@@ -1,9 +1,11 @@
 package com.rusiruchapana.pos.entity;
-
 import jakarta.persistence.*;
+import lombok.Data;
+import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 
 import java.util.ArrayList;
+
 
 @Entity
 @Table(name = "customer")
@@ -18,11 +20,11 @@ public class CustomerEntity {
     private String customerAdress;
     @Column(name = "customer_salary",length = 10)
     private Double customerSalary;
-    @Type(type="json")
-    @Column(name = "contact_numbers",columnDefinition = "json")
-    private ArrayList contactNumbers;
     @Column(name = "nic_number",nullable = false,unique = true)
     private String nicNumber;
+    @Convert(converter = ContactNumbersConverter.class)
+    private ArrayList<String> contactNumbers;
+
     @Column(name = "active_status")
     private Boolean activeStatus;
 
