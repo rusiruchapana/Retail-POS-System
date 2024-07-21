@@ -21,6 +21,6 @@ public class CustomerController {
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
         CustomerDTO customerDTO1 = customerService.addCustomer(customerDTO);
 
-        return null;
+        return customerDTO1;
     }
 }
