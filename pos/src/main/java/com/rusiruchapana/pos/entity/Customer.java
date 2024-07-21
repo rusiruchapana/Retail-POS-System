@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 @Entity
 @Table(name = "customer")
-public class CustomerEntity {
+public class Customer {
 
     @Id
     @Column(name = "customer_id",length = 45)
@@ -25,11 +25,11 @@ public class CustomerEntity {
     private Boolean activeStatus;
 
     //No Args constructor.
-    public CustomerEntity() {
+    public Customer() {
     }
 
     //All args constructor.
-    public CustomerEntity(Long customerId, String customerName, String customerAdress, Double customerSalary, String nicNumber, ArrayList<String> contactNumbers, Boolean activeStatus) {
+    public Customer(Long customerId, String customerName, String customerAdress, Double customerSalary, String nicNumber, ArrayList<String> contactNumbers, Boolean activeStatus) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerAdress = customerAdress;
@@ -41,7 +41,7 @@ public class CustomerEntity {
 
     @Override
     public String toString() {
-        return "CustomerEntity{" +
+        return "Customer{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\'' +
                 ", customerAdress='" + customerAdress + '\'' +
