@@ -1,35 +1,24 @@
-package com.rusiruchapana.pos.entity;
-import jakarta.persistence.*;
+package com.rusiruchapana.pos.dto;
+
+import com.rusiruchapana.pos.entity.ContactNumbersConverter;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 
 import java.util.ArrayList;
 
+public class CustomerDTO {
 
-@Entity
-@Table(name = "customer")
-public class CustomerEntity {
-
-    @Id
-    @Column(name = "customer_id",length = 45)
     private Long customerId;
-    @Column(name = "customer_name",nullable = false,length = 100)
     private String customerName;
-    @Column(name = "customer_adress",length = 100)
     private String customerAdress;
-    @Column(name = "customer_salary",length = 10)
     private Double customerSalary;
-    @Column(name = "nic_number",unique = true, length=12)
     private String nicNumber;
-    @Convert(converter = ContactNumbersConverter.class)
     private ArrayList<String> contactNumbers;
-    @Column(name = "active_status", columnDefinition = "TINYINT default 1")
     private Boolean activeStatus;
 
-    //No Args constructor.
-    public CustomerEntity() {
+    public CustomerDTO() {
     }
-
-    //All args constructor.
-    public CustomerEntity(Long customerId, String customerName, String customerAdress, Double customerSalary, String nicNumber, ArrayList<String> contactNumbers, Boolean activeStatus) {
+    public CustomerDTO(Long customerId, String customerName, String customerAdress, Double customerSalary, String nicNumber, ArrayList<String> contactNumbers, Boolean activeStatus) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerAdress = customerAdress;
@@ -41,7 +30,7 @@ public class CustomerEntity {
 
     @Override
     public String toString() {
-        return "CustomerEntity{" +
+        return "CustomerDTO{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\'' +
                 ", customerAdress='" + customerAdress + '\'' +
