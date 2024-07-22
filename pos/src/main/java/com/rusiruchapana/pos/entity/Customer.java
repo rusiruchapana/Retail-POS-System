@@ -21,7 +21,7 @@ public class Customer {
     private String nicNumber;
     @Convert(converter = ContactNumbersConverter.class)
     private ArrayList<String> contactNumbers;
-    @Column(name = "active_status", columnDefinition = "TINYINT default 1")
+    @Column(name = "active_status")
     private Boolean activeStatus;
 
     //No Args constructor.

@@ -1,11 +1,13 @@
 package com.rusiruchapana.pos.service;
 
 import com.rusiruchapana.pos.dto.CustomerDTO;
-import org.springframework.stereotype.Service;
+import com.rusiruchapana.pos.dto.request.CustomerUpdateRequest;
 
 
 public interface CustomerService {
 
 
-    CustomerDTO addCustomer(CustomerDTO customerDTO);
+    public CustomerDTO addCustomer(CustomerDTO customerDTO);
+
+    public CustomerDTO updateCustomer(CustomerUpdateRequest customerUpdateRequest);
 }

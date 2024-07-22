@@ -1,6 +1,7 @@
 package com.rusiruchapana.pos.controller;
 
 import com.rusiruchapana.pos.dto.CustomerDTO;
+import com.rusiruchapana.pos.dto.request.CustomerUpdateRequest;
 import com.rusiruchapana.pos.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,5 +23,12 @@ public class CustomerController {
         CustomerDTO customerDTO1 = customerService.addCustomer(customerDTO);
 
         return customerDTO1;
+    }
+
+    @PutMapping("/update")
+    public String updateCustomer(@RequestBody CustomerUpdateRequest customerUpdateRequest){
+        CustomerDTO customerDTO = customerService.updateCustomer(customerUpdateRequest );
+
+        return null;
     }
 }
