@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO updateCustomer(CustomerUpdateRequest customerUpdateRequest) {
 
-        if(customerRepo.existsById(customerUpdateRequest.getCustomerId())){
+        if (customerRepo.existsById(customerUpdateRequest.getCustomerId())) {
             Customer customer = customerRepo.getById(customerUpdateRequest.getCustomerId());
             customer.setCustomerName(customerUpdateRequest.getCustomerName());
             customer.setCustomerAdress(customerUpdateRequest.getCustomerAdress());
@@ -58,8 +58,8 @@ public class CustomerServiceImpl implements CustomerService {
                     customer.getActiveStatus()
             );
 
-            return  customerDTO;
-        }else {
+            return customerDTO;
+        } else {
             return null;
         }
 
@@ -68,10 +68,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomer(Long id) {
-        Optional<Customer> customerOptional =  customerRepo.findById(id);
+        Optional<Customer> customerOptional = customerRepo.findById(id);
 
-        if(customerOptional.isPresent()){
-
+        if (customerOptional.isPresent()) {
             CustomerDTO customerDTO = new CustomerDTO(
                     customerOptional.get().getCustomerId(),
                     customerOptional.get().getCustomerName(),
@@ -82,8 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
                     customerOptional.get().getActiveStatus()
             );
             return customerDTO;
-
-        }else{
+        } else {
             return null;
         }
 
@@ -94,8 +92,8 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customerList = customerRepo.findAll();
         List<CustomerDTO> customerDTOList = new ArrayList<>();
 
-        if(!customerList.isEmpty()){
-            for (int i=0; i<customerList.size() ; i++){
+        if (!customerList.isEmpty()) {
+            for (int i = 0; i < customerList.size(); i++) {
                 CustomerDTO customerDTO = new CustomerDTO(
                         customerList.get(i).getCustomerId(),
                         customerList.get(i).getCustomerName(),
@@ -106,11 +104,10 @@ public class CustomerServiceImpl implements CustomerService {
                         customerList.get(i).getActiveStatus()
 
                 );
-
                 customerDTOList.add(customerDTO);
             }
             return customerDTOList;
-        }else{
+        } else {
             return null;
         }
 

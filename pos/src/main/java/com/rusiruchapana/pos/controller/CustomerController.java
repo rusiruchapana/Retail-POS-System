@@ -16,38 +16,33 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping(path = "/test")
-    public String getText(){
+    public String getText() {
         return "Rusiru chapana";
     }
 
     @PostMapping("/save")
-    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
+    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
         CustomerDTO customerDTO1 = customerService.addCustomer(customerDTO);
-
         return customerDTO1;
     }
 
     @PutMapping("/update")
-    public String updateCustomer(@RequestBody CustomerUpdateRequest customerUpdateRequest){
-        CustomerDTO customerDTO = customerService.updateCustomer(customerUpdateRequest );
-
+    public String updateCustomer(@RequestBody CustomerUpdateRequest customerUpdateRequest) {
+        CustomerDTO customerDTO = customerService.updateCustomer(customerUpdateRequest);
         return null;
     }
 
     @GetMapping(path = "/get-customer/{customer_id}")
-    public CustomerDTO get_one_customer(@PathVariable("customer_id") Long id){
-
+    public CustomerDTO get_one_customer(@PathVariable("customer_id") Long id) {
         CustomerDTO customerDTO = customerService.getCustomer(id);
         return customerDTO;
     }
 
-    @GetMapping("/get-all-customers")
-    public List<CustomerDTO> get_all_customers(){
-
+    @GetMapping(path = "/get-all-customers")
+    public List<CustomerDTO> get_all_customers() {
         List<CustomerDTO> customerDTOList = customerService.getAllCustomers();
         return customerDTOList;
     }
-
 
 
 }
