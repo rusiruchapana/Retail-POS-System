@@ -122,5 +122,33 @@ public class CustomerServiceImpl implements CustomerService {
             throw new NotFoundException("Customer Not found in the database in that id.");
         }
     }
+
+    @Override
+    public List<CustomerDTO> find_by_names(String name) throws NotFoundException {
+
+        List<Customer> customerList = customerRepo.findAllByCustomerName(name);
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        if(!customerList.isEmpty()){
+            for (int i = 0; i < customerList.size(); i++) {
+                CustomerDTO customerDTO = new CustomerDTO(
+                        customerList.get(i).getCustomerId(),
+                        customerList.get(i).getCustomerName(),
+                        customerList.get(i).getCustomerAdress(),
+                        customerList.get(i).getCustomerSalary(),
+                        customerList.get(i).getNicNumber(),
+                        customerList.get(i).getContactNumbers(),
+                        customerList.get(i).getActiveStatus()
+                );
+                customerDTOList.add(customerDTO);
+            }
+
+            return customerDTOList;
+        }else{
+            throw new NotFoundException("Not found in the database.");
+        }
+
+
+    }
 }
 

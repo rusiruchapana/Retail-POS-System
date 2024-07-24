@@ -51,7 +51,11 @@ public class CustomerController {
         return "Deleted";
     }
 
-
+    @GetMapping(path = "get_customers_by_name" , params = "customer_name")
+    public List<CustomerDTO> get_all_by_name(@RequestParam("customer_name") String name) throws NotFoundException{
+        List<CustomerDTO> customerDTOList = customerService.find_by_names(name);
+        return customerDTOList;
+    }
 
 
 }
