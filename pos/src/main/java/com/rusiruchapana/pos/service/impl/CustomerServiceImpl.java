@@ -129,7 +129,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customerList = customerRepo.findAllByCustomerName(name);
         List<CustomerDTO> customerDTOList = new ArrayList<>();
 
-        if(!customerList.isEmpty()){
+        if(customerList.size()>0){
             for (int i = 0; i < customerList.size(); i++) {
                 CustomerDTO customerDTO = new CustomerDTO(
                         customerList.get(i).getCustomerId(),
