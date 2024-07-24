@@ -2,6 +2,7 @@ package com.rusiruchapana.pos.service;
 
 import com.rusiruchapana.pos.dto.CustomerDTO;
 import com.rusiruchapana.pos.dto.request.CustomerUpdateRequest;
+import javassist.NotFoundException;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface CustomerService {
     public CustomerDTO getCustomer(Long id);
 
     public List<CustomerDTO> getAllCustomers();
+
+    public Boolean  deleteCustomer(Long id) throws NotFoundException;
 }

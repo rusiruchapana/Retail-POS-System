@@ -5,6 +5,7 @@ import com.rusiruchapana.pos.dto.request.CustomerUpdateRequest;
 import com.rusiruchapana.pos.entity.Customer;
 import com.rusiruchapana.pos.repo.CustomerRepo;
 import com.rusiruchapana.pos.service.CustomerService;
+import javassist.NotFoundException;
 import org.hibernate.internal.util.collections.ArrayHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,7 +103,6 @@ public class CustomerServiceImpl implements CustomerService {
                         customerList.get(i).getNicNumber(),
                         customerList.get(i).getContactNumbers(),
                         customerList.get(i).getActiveStatus()
-
                 );
                 customerDTOList.add(customerDTO);
             }
@@ -110,8 +110,17 @@ public class CustomerServiceImpl implements CustomerService {
         } else {
             return null;
         }
+    }
 
 
+    @Override
+    public Boolean deleteCustomer(Long id) throws NotFoundException {
+        if(customerRepo.existsById(id)){
+            customerRepo.deleteById(id);
+            return true;
+        }else{
+            throw new NotFoundException("Customer Not found in the database in that id.");
+        }
     }
 }
 
