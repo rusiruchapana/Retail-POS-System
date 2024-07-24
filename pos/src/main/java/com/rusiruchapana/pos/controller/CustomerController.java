@@ -6,6 +6,8 @@ import com.rusiruchapana.pos.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
@@ -32,11 +34,18 @@ public class CustomerController {
         return null;
     }
 
-    @GetMapping(path = "/get_customer/{customer_id}")
+    @GetMapping(path = "/get-customer/{customer_id}")
     public CustomerDTO get_one_customer(@PathVariable("customer_id") Long id){
-        
+
         CustomerDTO customerDTO = customerService.getCustomer(id);
         return customerDTO;
+    }
+
+    @GetMapping("/get-all-customers")
+    public List<CustomerDTO> get_all_customers(){
+
+        List<CustomerDTO> customerDTOList = customerService.getAllCustomers();
+        return customerDTOList;
     }
 
 

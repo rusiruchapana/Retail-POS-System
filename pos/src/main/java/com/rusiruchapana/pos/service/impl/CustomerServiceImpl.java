@@ -5,10 +5,12 @@ import com.rusiruchapana.pos.dto.request.CustomerUpdateRequest;
 import com.rusiruchapana.pos.entity.Customer;
 import com.rusiruchapana.pos.repo.CustomerRepo;
 import com.rusiruchapana.pos.service.CustomerService;
+import org.hibernate.internal.util.collections.ArrayHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -84,6 +86,34 @@ public class CustomerServiceImpl implements CustomerService {
         }else{
             return null;
         }
+
+    }
+
+    @Override
+    public List<CustomerDTO> getAllCustomers() {
+        List<Customer> customerList = customerRepo.findAll();
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        if(!customerList.isEmpty()){
+            for (int i=0; i<customerList.size() ; i++){
+                CustomerDTO customerDTO = new CustomerDTO(
+                        customerList.get(i).getCustomerId(),
+                        customerList.get(i).getCustomerName(),
+                        customerList.get(i).getCustomerAdress(),
+                        customerList.get(i).getCustomerSalary(),
+                        customerList.get(i).getNicNumber(),
+                        customerList.get(i).getContactNumbers(),
+                        customerList.get(i).getActiveStatus()
+
+                );
+
+                customerDTOList.add(customerDTO);
+            }
+            return customerDTOList;
+        }else{
+            return null;
+        }
+
 
     }
 }
