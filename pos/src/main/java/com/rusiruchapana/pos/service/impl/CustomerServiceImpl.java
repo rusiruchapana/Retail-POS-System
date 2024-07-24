@@ -8,6 +8,9 @@ import com.rusiruchapana.pos.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
@@ -58,6 +61,29 @@ public class CustomerServiceImpl implements CustomerService {
             return null;
         }
 
+
+    }
+
+    @Override
+    public CustomerDTO getCustomer(Long id) {
+        Optional<Customer> customerOptional =  customerRepo.findById(id);
+
+        if(customerOptional.isPresent()){
+
+            CustomerDTO customerDTO = new CustomerDTO(
+                    customerOptional.get().getCustomerId(),
+                    customerOptional.get().getCustomerName(),
+                    customerOptional.get().getCustomerAdress(),
+                    customerOptional.get().getCustomerSalary(),
+                    customerOptional.get().getNicNumber(),
+                    customerOptional.get().getContactNumbers(),
+                    customerOptional.get().getActiveStatus()
+            );
+            return customerDTO;
+
+        }else{
+            return null;
+        }
 
     }
 }

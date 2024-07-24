@@ -10,4 +10,6 @@ public interface CustomerService {
     public CustomerDTO addCustomer(CustomerDTO customerDTO);
 
     public CustomerDTO updateCustomer(CustomerUpdateRequest customerUpdateRequest);
+
+    public CustomerDTO getCustomer(Long id);
 }

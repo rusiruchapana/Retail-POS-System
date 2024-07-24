@@ -13,7 +13,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/text-1")
+    @GetMapping(path = "/test")
     public String getText(){
         return "Rusiru chapana";
     }
@@ -31,4 +31,14 @@ public class CustomerController {
 
         return null;
     }
+
+    @GetMapping(path = "/get_customer/{customer_id}")
+    public CustomerDTO get_one_customer(@PathVariable("customer_id") Long id){
+        
+        CustomerDTO customerDTO = customerService.getCustomer(id);
+        return customerDTO;
+    }
+
+
+
 }
