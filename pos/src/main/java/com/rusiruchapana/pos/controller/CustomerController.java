@@ -48,7 +48,7 @@ public class CustomerController {
     @DeleteMapping(path = "/delete-customer", params = "customer_id")
     public String delete_one_customer(@RequestParam("customer_id") Long id) throws NotFoundException {
         Boolean is_deleted = customerService.deleteCustomer(id);
-        return null;
+        return "Deleted";
     }
 
 
