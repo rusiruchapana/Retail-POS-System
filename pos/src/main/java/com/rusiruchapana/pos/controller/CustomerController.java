@@ -1,8 +1,8 @@
 package com.rusiruchapana.pos.controller;
 
 import com.rusiruchapana.pos.dto.CustomerDTO;
-import com.rusiruchapana.pos.dto.request.CustomerUpdateRequest;
 import com.rusiruchapana.pos.service.CustomerService;
+
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,19 +28,19 @@ public class CustomerController {
     }
 
     @PutMapping("/update")
-    public String updateCustomer(@RequestBody CustomerUpdateRequest customerUpdateRequest) {
-        CustomerDTO customerDTO = customerService.updateCustomer(customerUpdateRequest);
+    public String updateCustomer(@RequestBody CustomerDTO customerDTO) throws NotFoundException {
+        CustomerDTO customerDTO1 = customerService.updateCustomer(customerDTO);
         return null;
     }
 
     @GetMapping(path = "/get-all-customers")
-    public List<CustomerDTO> get_all_customers() {
+    public List<CustomerDTO> get_all_customers() throws NotFoundException {
         List<CustomerDTO> customerDTOList = customerService.getAllCustomers();
         return customerDTOList;
     }
 
     @GetMapping(path = "/get-customer/{customer_id}")
-    public CustomerDTO get_one_customer(@PathVariable("customer_id") Long id) {
+    public CustomerDTO get_one_customer(@PathVariable("customer_id") Long id) throws NotFoundException {
         CustomerDTO customerDTO = customerService.getCustomer(id);
         return customerDTO;
     }
@@ -52,7 +52,7 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/get_customers_by_name" , params = "customer_name")
-    public List<CustomerDTO> get_all_by_name(@RequestParam("customer_name") String name) throws NotFoundException{
+    public List<CustomerDTO> get_all_by_name(@RequestParam("customer_name") String name) throws NotFoundException {
         List<CustomerDTO> customerDTOList = customerService.find_by_names(name);
         return customerDTOList;
     }

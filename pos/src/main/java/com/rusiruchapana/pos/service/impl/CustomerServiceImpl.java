@@ -1,12 +1,11 @@
 package com.rusiruchapana.pos.service.impl;
 
 import com.rusiruchapana.pos.dto.CustomerDTO;
-import com.rusiruchapana.pos.dto.request.CustomerUpdateRequest;
 import com.rusiruchapana.pos.entity.Customer;
 import com.rusiruchapana.pos.repo.CustomerRepo;
 import com.rusiruchapana.pos.service.CustomerService;
+import com.rusiruchapana.pos.util.CustomerMapper;
 import javassist.NotFoundException;
-import org.hibernate.internal.util.collections.ArrayHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +17,9 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepo customerRepo;
+
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @Override
     public CustomerDTO addCustomer(CustomerDTO customerDTO) {
@@ -36,39 +38,34 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO updateCustomer(CustomerUpdateRequest customerUpdateRequest) {
-
-        if (customerRepo.existsById(customerUpdateRequest.getCustomerId())) {
-            Customer customer = customerRepo.getById(customerUpdateRequest.getCustomerId());
-            customer.setCustomerName(customerUpdateRequest.getCustomerName());
-            customer.setCustomerAdress(customerUpdateRequest.getCustomerAdress());
-            customer.setCustomerSalary(customer.getCustomerSalary());
-            customer.setNicNumber(customerUpdateRequest.getNicNumber());
-            customer.setContactNumbers(customerUpdateRequest.getContactNumbers());
-            customer.setActiveStatus(customerUpdateRequest.getActiveStatus());
-
-            customerRepo.save(customer);
-
-            CustomerDTO customerDTO = new CustomerDTO(
-                    customer.getCustomerId(),
-                    customer.getCustomerName(),
-                    customer.getCustomerAdress(),
-                    customer.getCustomerSalary(),
-                    customer.getNicNumber(),
-                    customer.getContactNumbers(),
-                    customer.getActiveStatus()
-            );
-
-            return customerDTO;
-        } else {
-            return null;
-        }
+    public CustomerDTO updateCustomer(CustomerDTO customerDTO) throws NotFoundException {
 
 
+            Optional<Customer> customer = customerRepo.findById(customerDTO.getCustomerId());
+            Customer customer1 = customer.get();
+            if (customer.isPresent()) {
+                customer1.setCustomerName(customerDTO.getCustomerName());
+                customer1.setCustomerAdress(customerDTO.getCustomerAdress());
+                customer1.setCustomerSalary(customerDTO.getCustomerSalary());
+                customer1.setNicNumber(customerDTO.getNicNumber());
+                customer1.setContactNumbers(customerDTO.getContactNumbers());
+                customer1.setActiveStatus(customerDTO.getActiveStatus());
+
+                customerRepo.save(customer1);
+
+                return customerMapper.entity_to_dto(customer1);
+            }
+            else {
+                throw new NotFoundException("There are not customers for that customer id.");
+            }
     }
 
+
+
+
+
     @Override
-    public CustomerDTO getCustomer(Long id) {
+    public CustomerDTO getCustomer(Long id) throws NotFoundException {
         Optional<Customer> customerOptional = customerRepo.findById(id);
 
         if (customerOptional.isPresent()) {
@@ -83,13 +80,13 @@ public class CustomerServiceImpl implements CustomerService {
             );
             return customerDTO;
         } else {
-            return null;
+            throw new NotFoundException("No suitable customer in the database for this id.");
         }
 
     }
 
     @Override
-    public List<CustomerDTO> getAllCustomers() {
+    public List<CustomerDTO> getAllCustomers() throws NotFoundException {
         List<Customer> customerList = customerRepo.findAll();
         List<CustomerDTO> customerDTOList = new ArrayList<>();
 
@@ -108,7 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
             }
             return customerDTOList;
         } else {
-            return null;
+            throw new NotFoundException("There are no customers in the database.");
         }
     }
 
@@ -123,29 +120,16 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+
     @Override
     public List<CustomerDTO> find_by_names(String name) throws NotFoundException {
 
         List<Customer> customerList = customerRepo.findAllByCustomerName(name);
-        List<CustomerDTO> customerDTOList = new ArrayList<>();
-
         if(customerList.size()>0){
-            for (int i = 0; i < customerList.size(); i++) {
-                CustomerDTO customerDTO = new CustomerDTO(
-                        customerList.get(i).getCustomerId(),
-                        customerList.get(i).getCustomerName(),
-                        customerList.get(i).getCustomerAdress(),
-                        customerList.get(i).getCustomerSalary(),
-                        customerList.get(i).getNicNumber(),
-                        customerList.get(i).getContactNumbers(),
-                        customerList.get(i).getActiveStatus()
-                );
-                customerDTOList.add(customerDTO);
-            }
-
+            List<CustomerDTO> customerDTOList = customerMapper.entity_to_dto(customerList);
             return customerDTOList;
         }else{
-            throw new NotFoundException("Not found in the database.");
+            throw new NotFoundException("There is not name matching for the database.");
         }
 
 
