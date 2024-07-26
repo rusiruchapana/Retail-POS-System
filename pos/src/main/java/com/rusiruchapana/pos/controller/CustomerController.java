@@ -57,5 +57,11 @@ public class CustomerController {
         return customerDTOList;
     }
 
+    @GetMapping("/get-active-customers")
+    public List<CustomerDTO> get_all_active() throws NotFoundException {
+        List<CustomerDTO> customerDTOList = customerService.getActiveCustomers();
+        return customerDTOList;
+    }
+
 
 }

@@ -134,5 +134,18 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     }
+
+    @Override
+    public List<CustomerDTO> getActiveCustomers() throws NotFoundException {
+        List<Customer> customerList = customerRepo.findAllByActiveStatus(true);
+        if(!customerList.isEmpty()){
+            List<CustomerDTO> customerDTOList = customerMapper.entity_to_dto(customerList);
+            return customerDTOList;
+        }else{
+            throw new NotFoundException("There are no suitable customers in the database.");
+        }
+
+
+    }
 }
 

@@ -20,4 +20,6 @@ public interface CustomerService {
     public Boolean deleteCustomer(Long id) throws NotFoundException;
 
     public List<CustomerDTO> find_by_names(String name) throws NotFoundException;
+
+    public List<CustomerDTO> getActiveCustomers() throws NotFoundException;
 }
