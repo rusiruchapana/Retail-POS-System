@@ -1,6 +1,7 @@
 package com.rusiruchapana.pos.system.controller;
 
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
+import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
 import com.rusiruchapana.pos.system.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,19 @@ public class CustomerController {
         CustomerResponseDTO customerResponseDTO = customerService.update(customerRequestDTO,id);
         return customerResponseDTO;
     }
+
+    @GetMapping(path = "/get-active-customers")
+    public List<CustomerResponseDTO> getActiveCustomers(){
+        List<CustomerResponseDTO> customerResponseDTOS = customerService.getActiveCustomers();
+        return customerResponseDTOS;
+    }
+
+    @GetMapping(path = "/get-active-customers-names")
+    public List<CustomerNameResponseDTO> getActiveCustomersNames(){
+        List<CustomerNameResponseDTO> customerResponseDTOS = customerService.getActiveCustomersNames();
+        return customerResponseDTOS;
+    }
+
+
 
 }

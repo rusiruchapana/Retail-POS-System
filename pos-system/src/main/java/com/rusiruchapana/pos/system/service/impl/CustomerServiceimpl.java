@@ -1,6 +1,7 @@
 package com.rusiruchapana.pos.system.service.impl;
 
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
+import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
 import com.rusiruchapana.pos.system.entity.Customer;
 import com.rusiruchapana.pos.system.repository.CustomerRepo;
@@ -9,6 +10,7 @@ import com.rusiruchapana.pos.system.util.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,6 +83,26 @@ public class CustomerServiceimpl implements CustomerService {
         customerResponseDTO.setActiveStatus(customer.getActiveStatus());
 
         return customerResponseDTO;
+    }
+
+    @Override
+    public List<CustomerResponseDTO> getActiveCustomers() {
+        List<Customer> customers = customerRepo.findAllByActiveStatus(true);
+        return customerMapper.entityToDto(customers);
+    }
+
+    @Override
+    public List<CustomerNameResponseDTO> getActiveCustomersNames() {
+        List<Customer> customers = customerRepo.findAllByActiveStatus(true);
+        List<CustomerNameResponseDTO> customerNameResponseDTOS1 = new ArrayList<>();
+
+        for(int i=0; i<customers.size(); i++){
+            CustomerNameResponseDTO customerNameResponseDTO2 = new CustomerNameResponseDTO();
+            customerNameResponseDTO2.setName(customers.get(i).getName());
+            customerNameResponseDTO2.setContactNumbers(customers.get(i).getContactNumbers());
+            customerNameResponseDTOS1.add(customerNameResponseDTO2);
+        }
+        return customerNameResponseDTOS1;
     }
 
 
