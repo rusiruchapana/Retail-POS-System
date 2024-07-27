@@ -33,4 +33,10 @@ public class CustomerController {
         return msg;
     }
 
+    @PutMapping(path = "/update-single-customer", params = "customerId")
+    public CustomerResponseDTO updateCustomer(@RequestBody CustomerRequestDTO customerRequestDTO, @RequestParam("customerId") Long id){
+        CustomerResponseDTO customerResponseDTO = customerService.update(customerRequestDTO,id);
+        return customerResponseDTO;
+    }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceimpl implements CustomerService {
@@ -55,4 +56,32 @@ public class CustomerServiceimpl implements CustomerService {
         customerRepo.deleteById(id);
         return "deleted customer.";
     }
+
+    @Override
+    public CustomerResponseDTO update(CustomerRequestDTO customerRequestDTO, Long id) {
+        Optional<Customer> customerOptional = customerRepo.findById(id);
+        Customer customer = customerOptional.get();
+
+        customer.setName(customerRequestDTO.getName());
+        customer.setAdress(customerRequestDTO.getAdress());
+        customer.setSalary(customerRequestDTO.getSalary());
+        customer.setContactNumbers(customerRequestDTO.getContactNumbers());
+        customer.setNic(customerRequestDTO.getNic());
+        customer.setActiveStatus(customerRequestDTO.getActiveStatus());
+
+        customerRepo.save(customerOptional.get());
+
+        CustomerResponseDTO customerResponseDTO = new CustomerResponseDTO();
+        customerResponseDTO.setId(customer.getId());
+        customerResponseDTO.setName(customer.getName());
+        customerResponseDTO.setAdress(customer.getAdress());
+        customerResponseDTO.setSalary(customer.getSalary());
+        customerResponseDTO.setContactNumbers(customer.getContactNumbers());
+        customerResponseDTO.setNic(customer.getNic());
+        customerResponseDTO.setActiveStatus(customer.getActiveStatus());
+
+        return customerResponseDTO;
+    }
+
+
 }

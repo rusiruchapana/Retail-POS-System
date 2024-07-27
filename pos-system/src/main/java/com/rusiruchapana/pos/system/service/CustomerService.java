@@ -11,4 +11,5 @@ public interface CustomerService {
     public List<CustomerResponseDTO> getAllCustomers();
 
     public String deleteCustomer(Long id);
+    public CustomerResponseDTO update(CustomerRequestDTO customerRequestDTO, Long id);
 }

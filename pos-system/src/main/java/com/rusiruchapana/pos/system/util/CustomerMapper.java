@@ -5,9 +5,11 @@ import com.rusiruchapana.pos.system.entity.Customer;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
 
     List<CustomerResponseDTO> entityToDto(List<Customer> customerList);
+
 }
