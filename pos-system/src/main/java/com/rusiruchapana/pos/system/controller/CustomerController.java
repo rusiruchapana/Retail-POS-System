@@ -4,10 +4,9 @@ import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
 import com.rusiruchapana.pos.system.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customer")
@@ -21,4 +20,11 @@ public class CustomerController {
         CustomerResponseDTO customerResponseDTO = customerService.createCustomer(customerRequestDTO);
         return customerResponseDTO;
     }
+
+    @GetMapping(path = "/get-all-customers")
+    public List<CustomerResponseDTO> getAllCustomers(){
+        List<CustomerResponseDTO> customerResponseDTOList = customerService.getAllCustomers();
+        return customerResponseDTOList;
+    }
+
 }

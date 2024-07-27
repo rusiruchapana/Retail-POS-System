@@ -8,6 +8,8 @@ import com.rusiruchapana.pos.system.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerServiceimpl implements CustomerService {
 
@@ -35,5 +37,12 @@ public class CustomerServiceimpl implements CustomerService {
         customerResponseDTO.setActiveStatus(customer.getActiveStatus());
 
         return customerResponseDTO;
+    }
+
+    @Override
+    public List<CustomerResponseDTO> getAllCustomers() {
+        List<Customer> customers = customerRepo.findAll();
+        
+        return null;
     }
 }
