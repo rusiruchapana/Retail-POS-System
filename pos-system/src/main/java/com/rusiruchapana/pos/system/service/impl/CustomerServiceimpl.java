@@ -49,4 +49,10 @@ public class CustomerServiceimpl implements CustomerService {
         List<CustomerResponseDTO> customerResponseDTOList = customerMapper.entityToDto(customers);
         return customerResponseDTOList;
     }
+
+    @Override
+    public String deleteCustomer(Long id) {
+        customerRepo.deleteById(id);
+        return "deleted customer.";
+    }
 }

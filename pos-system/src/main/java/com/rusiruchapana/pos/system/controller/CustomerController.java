@@ -27,4 +27,10 @@ public class CustomerController {
         return customerResponseDTOList;
     }
 
+    @DeleteMapping(path = "/delete-single-customer", params = "customerId")
+    public String deleteCustomers(@RequestParam("customerId") Long id){
+        String msg = customerService.deleteCustomer(id);
+        return msg;
+    }
+
 }

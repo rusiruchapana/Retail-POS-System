@@ -9,4 +9,6 @@ public interface CustomerService {
     public CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequestDTO);
 
     public List<CustomerResponseDTO> getAllCustomers();
+
+    public String deleteCustomer(Long id);
 }
