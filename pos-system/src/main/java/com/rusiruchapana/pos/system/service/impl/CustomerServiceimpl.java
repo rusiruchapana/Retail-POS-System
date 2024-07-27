@@ -5,6 +5,7 @@ import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
 import com.rusiruchapana.pos.system.entity.Customer;
 import com.rusiruchapana.pos.system.repository.CustomerRepo;
 import com.rusiruchapana.pos.system.service.CustomerService;
+import com.rusiruchapana.pos.system.util.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class CustomerServiceimpl implements CustomerService {
 
     @Autowired
     private CustomerRepo customerRepo;
+
+    @Autowired
+    private CustomerMapper customerMapper;
     @Override
     public CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequestDTO) {
         Customer customer = new Customer();
@@ -42,7 +46,7 @@ public class CustomerServiceimpl implements CustomerService {
     @Override
     public List<CustomerResponseDTO> getAllCustomers() {
         List<Customer> customers = customerRepo.findAll();
-        
-        return null;
+        List<CustomerResponseDTO> customerResponseDTOList = customerMapper.entityToDto(customers);
+        return customerResponseDTOList;
     }
 }
