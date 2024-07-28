@@ -1,5 +1,6 @@
 package com.rusiruchapana.pos.system.service.impl;
 
+import com.rusiruchapana.pos.system.dto.request.CustomerNameRequestByQueryDTO;
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
@@ -103,6 +104,12 @@ public class CustomerServiceimpl implements CustomerService {
             customerNameResponseDTOS1.add(customerNameResponseDTO2);
         }
         return customerNameResponseDTOS1;
+    }
+
+    @Override
+    public String updateCustomersByQuery(CustomerNameRequestByQueryDTO customerNameRequestByQueryDTO, Long id) {
+        customerRepo.updateCustomersUsingQuery(customerNameRequestByQueryDTO.getName(), customerNameRequestByQueryDTO.getNic(), id);
+        return "Updated succesfully.";
     }
 
 

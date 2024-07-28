@@ -1,5 +1,6 @@
 package com.rusiruchapana.pos.system.controller;
 
+import com.rusiruchapana.pos.system.dto.request.CustomerNameRequestByQueryDTO;
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
@@ -50,6 +51,12 @@ public class CustomerController {
     public List<CustomerNameResponseDTO> getActiveCustomersNames(){
         List<CustomerNameResponseDTO> customerResponseDTOS = customerService.getActiveCustomersNames();
         return customerResponseDTOS;
+    }
+
+    @PutMapping(path = "update-customers-by-query",params = "customerId")
+    public String updateCustomerUsingQuery(@RequestBody CustomerNameRequestByQueryDTO customerNameRequestByQueryDTO , @RequestParam("customerId") Long id){
+        String msg = customerService.updateCustomersByQuery(customerNameRequestByQueryDTO,id);
+        return msg;
     }
 
 
