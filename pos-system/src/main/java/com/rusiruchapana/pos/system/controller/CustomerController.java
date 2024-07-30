@@ -79,4 +79,9 @@ public class CustomerController {
         return "Updated sucessfully ID: "+ id;
     }
 
+    @GetMapping(path = "/active" , params = "customerId")
+    public String findActiveOrNotUsingID(@RequestParam("customerId") Long id){
+        String msg = customerService.findActiveOrNot(id);
+        return msg;
+    }
 }

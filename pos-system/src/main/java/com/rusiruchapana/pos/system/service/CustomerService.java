@@ -28,4 +28,6 @@ public interface CustomerService {
     public CustomerSpecificDetailsResponseDTO getDetails(Long id);
 
     public void updateSpecificCustomerDetails(CustomerSpecificDetailsRequestDTO customerSpecificDetailsRequestDTO, Long id);
+
+    public String findActiveOrNot(Long id);
 }

@@ -152,5 +152,16 @@ public class CustomerServiceimpl implements CustomerService {
         }
     }
 
+    @Override
+    public String findActiveOrNot(Long id) {
+        Optional<Customer> customerOptional = customerRepo.findById(id);
+        Customer customer = customerOptional.get();
+        if(customer.getActiveStatus()==true){
+            return "Customer is activated.";
+        }else{
+            return "Customer is not activated.";
+        }
+    }
+
 
 }
