@@ -4,6 +4,7 @@ import com.rusiruchapana.pos.system.dto.request.CustomerNameRequestByQueryDTO;
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
+import com.rusiruchapana.pos.system.dto.response.CustomerSpecificDetailsResponseDTO;
 import com.rusiruchapana.pos.system.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -65,5 +66,10 @@ public class CustomerController {
         return customerResponseDTO;
     }
 
+    @GetMapping(path = "/get-spec-by-id", params = "customerId")
+    public CustomerSpecificDetailsResponseDTO getSpecCustomerById(@RequestParam("customerId") Long id){
+        CustomerSpecificDetailsResponseDTO customerSpecificDetailsResponseDTO = customerService.getDetails(id);
+        return customerSpecificDetailsResponseDTO;
+    }
 
 }

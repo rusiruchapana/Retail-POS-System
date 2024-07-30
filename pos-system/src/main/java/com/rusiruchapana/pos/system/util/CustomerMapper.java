@@ -1,6 +1,7 @@
 package com.rusiruchapana.pos.system.util;
 
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
+import com.rusiruchapana.pos.system.dto.response.CustomerSpecificDetailsResponseDTO;
 import com.rusiruchapana.pos.system.entity.Customer;
 import org.mapstruct.Mapper;
 
@@ -12,4 +13,5 @@ public interface CustomerMapper {
 
     List<CustomerResponseDTO> entityToDto(List<Customer> customerList);
     CustomerResponseDTO entityToDto(Customer customer);
+    CustomerSpecificDetailsResponseDTO entityToSpecialDto(Customer customer);
 }

@@ -4,6 +4,7 @@ import com.rusiruchapana.pos.system.dto.request.CustomerNameRequestByQueryDTO;
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
+import com.rusiruchapana.pos.system.dto.response.CustomerSpecificDetailsResponseDTO;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface CustomerService {
     String updateCustomersByQuery(CustomerNameRequestByQueryDTO customerNameRequestByQueryDTO, Long id);
 
     public CustomerResponseDTO getCustomersByNic(String nic);
+
+    public CustomerSpecificDetailsResponseDTO getDetails(Long id);
 }

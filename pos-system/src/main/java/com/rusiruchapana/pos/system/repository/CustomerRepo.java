@@ -18,4 +18,5 @@ public interface CustomerRepo extends JpaRepository<Customer,Long> {
     void updateCustomersUsingQuery(String name, String nic, Long id);
 
     Optional<Customer> findByNicEquals(String nic);
+    Optional<Customer> findByIdEquals(Long id);
 }
