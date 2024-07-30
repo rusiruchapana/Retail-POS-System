@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface CustomerMapper {
 
     List<CustomerResponseDTO> entityToDto(List<Customer> customerList);
-
+    CustomerResponseDTO entityToDto(Customer customer);
 }

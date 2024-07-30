@@ -59,7 +59,11 @@ public class CustomerController {
         return msg;
     }
 
+    @GetMapping(path = "/get-by-nic", params = "customerNic")
+    public CustomerResponseDTO getCustomersById(@RequestParam("customerNic") String nic){
+        CustomerResponseDTO customerResponseDTO = customerService.getCustomersByNic(nic);
+        return customerResponseDTO;
+    }
 
 
 }
- 

@@ -20,4 +20,6 @@ public interface CustomerService {
     public List<CustomerNameResponseDTO> getActiveCustomersNames();
 
     String updateCustomersByQuery(CustomerNameRequestByQueryDTO customerNameRequestByQueryDTO, Long id);
+
+    public CustomerResponseDTO getCustomersByNic(String nic);
 }

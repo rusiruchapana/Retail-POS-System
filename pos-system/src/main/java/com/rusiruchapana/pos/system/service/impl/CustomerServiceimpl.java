@@ -5,6 +5,7 @@ import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
 import com.rusiruchapana.pos.system.entity.Customer;
+import com.rusiruchapana.pos.system.exception.NotFoundException;
 import com.rusiruchapana.pos.system.repository.CustomerRepo;
 import com.rusiruchapana.pos.system.service.CustomerService;
 import com.rusiruchapana.pos.system.util.CustomerMapper;
@@ -110,6 +111,18 @@ public class CustomerServiceimpl implements CustomerService {
     public String updateCustomersByQuery(CustomerNameRequestByQueryDTO customerNameRequestByQueryDTO, Long id) {
         customerRepo.updateCustomersUsingQuery(customerNameRequestByQueryDTO.getName(), customerNameRequestByQueryDTO.getNic(), id);
         return "Updated succesfully.";
+    }
+
+    @Override
+    public CustomerResponseDTO getCustomersByNic(String nic) {
+        Optional<Customer> customer = customerRepo.findByNicEquals(nic);
+        if(customer.isPresent()){
+            CustomerResponseDTO customerResponseDTO = customerMapper.entityToDto(customer.get());
+            return customerResponseDTO;
+        }else{
+            throw new NotFoundException("Not found this NIC.");
+        }
+
     }
 
 
