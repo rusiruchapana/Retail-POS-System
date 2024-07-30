@@ -2,6 +2,7 @@ package com.rusiruchapana.pos.system.service.impl;
 
 import com.rusiruchapana.pos.system.dto.request.CustomerNameRequestByQueryDTO;
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
+import com.rusiruchapana.pos.system.dto.request.CustomerSpecificDetailsRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerSpecificDetailsResponseDTO;
@@ -134,6 +135,20 @@ public class CustomerServiceimpl implements CustomerService {
             return customerSpecificDetailsResponseDTO;
         }else{
             throw new NotFoundException("Not found this.");
+        }
+    }
+
+    @Override
+    public void updateSpecificCustomerDetails(CustomerSpecificDetailsRequestDTO customerSpecificDetailsRequestDTO, Long id) {
+        Optional<Customer> customer = customerRepo.findByIdEquals(id);
+        Customer customer1 = customer.get();
+        if (customer.isPresent()){
+            CustomerSpecificDetailsRequestDTO customerSpecificDetailsRequestDTO1 = new CustomerSpecificDetailsRequestDTO();
+            customerSpecificDetailsRequestDTO1.setName(customerSpecificDetailsRequestDTO.getName());
+            customerSpecificDetailsRequestDTO1.setSalary(customerSpecificDetailsRequestDTO.getSalary());
+            customerSpecificDetailsRequestDTO1.setNic(customerSpecificDetailsRequestDTO.getNic());
+        }else {
+            throw new NotFoundException("Not Found.");
         }
     }
 

@@ -2,6 +2,7 @@ package com.rusiruchapana.pos.system.service;
 
 import com.rusiruchapana.pos.system.dto.request.CustomerNameRequestByQueryDTO;
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
+import com.rusiruchapana.pos.system.dto.request.CustomerSpecificDetailsRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerSpecificDetailsResponseDTO;
@@ -25,4 +26,6 @@ public interface CustomerService {
     public CustomerResponseDTO getCustomersByNic(String nic);
 
     public CustomerSpecificDetailsResponseDTO getDetails(Long id);
+
+    public void updateSpecificCustomerDetails(CustomerSpecificDetailsRequestDTO customerSpecificDetailsRequestDTO, Long id);
 }

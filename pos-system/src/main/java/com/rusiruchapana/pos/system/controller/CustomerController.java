@@ -2,6 +2,7 @@ package com.rusiruchapana.pos.system.controller;
 
 import com.rusiruchapana.pos.system.dto.request.CustomerNameRequestByQueryDTO;
 import com.rusiruchapana.pos.system.dto.request.CustomerRequestDTO;
+import com.rusiruchapana.pos.system.dto.request.CustomerSpecificDetailsRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerNameResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerResponseDTO;
 import com.rusiruchapana.pos.system.dto.response.CustomerSpecificDetailsResponseDTO;
@@ -70,6 +71,12 @@ public class CustomerController {
     public CustomerSpecificDetailsResponseDTO getSpecCustomerById(@RequestParam("customerId") Long id){
         CustomerSpecificDetailsResponseDTO customerSpecificDetailsResponseDTO = customerService.getDetails(id);
         return customerSpecificDetailsResponseDTO;
+    }
+
+    @PutMapping(path = "/update-specific-details" , params = "customerId")
+    public String updateSpecificCustomerDetails(@RequestBody CustomerSpecificDetailsRequestDTO customerSpecificDetailsRequestDTO , @RequestParam("customerId") Long id){
+        customerService.updateSpecificCustomerDetails(customerSpecificDetailsRequestDTO , id);
+        return "Updated sucessfully ID: "+ id;
     }
 
 }
