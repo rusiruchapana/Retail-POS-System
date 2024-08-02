@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
+import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -30,13 +31,13 @@ public class ItemServiceImpl implements ItemService {
         System.out.println(itemRepo.existsById(item.getItemId()));
         return itemMapper.entityToResponseDTO(item);
     }
+
+    @Override
+    public List<ItemResponseDTO> getAllItems() {
+        List<Item> itemList = itemRepo.findAll();
+        return itemMapper.entityToDTO(itemList);
+    }
+
+
 }
 
-
-
-//        if(itemRepo.existsById(item.getItemId())){
-//            itemRepo.save(item);
-//            return itemMapper.entityToResponseDTO(item);
-//        }else {
-//            throw new EntryDuplicationException("Item already exist.");
-//        }

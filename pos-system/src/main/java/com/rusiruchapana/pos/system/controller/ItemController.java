@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/v1/item")
 public class ItemController {
@@ -29,4 +31,14 @@ public class ItemController {
                 HttpStatus.CREATED
         );
     }
+
+    @GetMapping(path = "/all-items")
+    public ResponseEntity<StandardResponse> getAllItems(){
+        List<ItemResponseDTO> itemResponseDTOList = itemService.getAllItems();
+        return new ResponseEntity<>(
+                new StandardResponse(200L, "Recieved all items.",itemResponseDTOList),
+                HttpStatus.OK
+        );
+    }
+
 }
