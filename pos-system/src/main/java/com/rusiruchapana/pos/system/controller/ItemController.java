@@ -1,6 +1,7 @@
 package com.rusiruchapana.pos.system.controller;
 
 import com.rusiruchapana.pos.system.dto.request.ItemRequestDTO;
+import com.rusiruchapana.pos.system.dto.response.CountOfActiveStatusInItems;
 import com.rusiruchapana.pos.system.dto.response.ItemResponseDTO;
 import com.rusiruchapana.pos.system.service.ItemService;
 import com.rusiruchapana.pos.system.util.StandardResponse;
@@ -66,5 +67,16 @@ public class ItemController {
                 );
         }
     }
+
+    @GetMapping(path = "/state-count")
+    public ResponseEntity<StandardResponse> countOfState(){
+        System.out.println("sdsd");
+        CountOfActiveStatusInItems count = itemService.activeInactiveCount();
+        return new ResponseEntity<>(
+                new StandardResponse(200L,"Counts",count),
+                HttpStatus.OK
+        );
+    }
+
 
 }
