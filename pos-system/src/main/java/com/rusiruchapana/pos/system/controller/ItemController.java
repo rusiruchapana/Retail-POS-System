@@ -41,4 +41,30 @@ public class ItemController {
         );
     }
 
+    @GetMapping(path = "/items-by-status" , params = "status")
+    public ResponseEntity<StandardResponse> getAllItemsByStatus(@RequestParam("status") String state){
+        if(state.equalsIgnoreCase("active") || state.equalsIgnoreCase("inactive")){
+            if(state.equalsIgnoreCase("active")){
+                List<ItemResponseDTO> itemResponseDTOList = itemService.getActiveItems(true);
+                return new ResponseEntity<>(
+                        new StandardResponse(200L, "Active items", itemResponseDTOList),
+                        HttpStatus.OK
+                );
+            }
+
+            List<ItemResponseDTO> itemResponseDTOList = itemService.getActiveItems(false);
+            return new ResponseEntity<>(
+                    new StandardResponse(200L, "Inactive items.", itemResponseDTOList),
+                    HttpStatus.OK
+            );
+
+        }else {
+                List<ItemResponseDTO> itemResponseDTOList = itemService.getAllItems();
+                return new ResponseEntity<>(
+                        new StandardResponse(200L, "All items", itemResponseDTOList),
+                        HttpStatus.OK
+                );
+        }
+    }
+
 }

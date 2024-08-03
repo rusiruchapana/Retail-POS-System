@@ -38,6 +38,12 @@ public class ItemServiceImpl implements ItemService {
         return itemMapper.entityToDTO(itemList);
     }
 
+    @Override
+    public List<ItemResponseDTO> getActiveItems(boolean b) {
+        List<Item> itemList = itemRepo.findAllByActiveStatusEquals(b);
+        return itemMapper.entityToDTO(itemList);
+    }
+
 
 }
 
