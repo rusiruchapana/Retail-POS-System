@@ -76,6 +76,16 @@ public class ItemServiceImpl implements ItemService {
         return paginatedItemsResponseDTO;
     }
 
+    @Override
+    public PaginatedItemsResponseDTO getActiveItemsPaginatedly(int page, int size) {
+        Page<Item> items = itemRepo.findAllByActiveStatusEquals(true , PageRequest.of(page,size));
+        PaginatedItemsResponseDTO paginatedItemsResponseDTO = new PaginatedItemsResponseDTO(
+                itemMapper.pageEntityToDTO(items),
+                (double) itemRepo.findAllByActiveStatusEquals(true).size()
+        );
+        return paginatedItemsResponseDTO;
+    }
+
 
 }
 

@@ -91,5 +91,17 @@ public class ItemController {
         );
     }
 
+    @GetMapping(path = "/active-items-paginatedly" , params = {"page","size"})
+    public ResponseEntity<StandardResponse> getActiveItemsPaginatedly(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ){
+        System.out.println("sdsds");
+        PaginatedItemsResponseDTO paginatedItemsResponseDTO = itemService.getActiveItemsPaginatedly(page , size);
+        return new ResponseEntity<>(
+                new StandardResponse(200L, "Sucessfully get", paginatedItemsResponseDTO),
+                HttpStatus.OK
+        );
+    }
 
 }

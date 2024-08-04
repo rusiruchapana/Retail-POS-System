@@ -16,4 +16,6 @@ public interface ItemService {
     public CountOfActiveStatusInItems activeInactiveCount();
 
     public PaginatedItemsResponseDTO getPaginatedItems(int page, int size);
+
+    public PaginatedItemsResponseDTO getActiveItemsPaginatedly(int page, int size);
 }
