@@ -3,12 +3,15 @@ package com.rusiruchapana.pos.system.service.impl;
 import com.rusiruchapana.pos.system.dto.request.ItemRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CountOfActiveStatusInItems;
 import com.rusiruchapana.pos.system.dto.response.ItemResponseDTO;
+import com.rusiruchapana.pos.system.dto.response.PaginatedItemsResponseDTO;
 import com.rusiruchapana.pos.system.entity.Item;
 import com.rusiruchapana.pos.system.exception.EntryDuplicationException;
 import com.rusiruchapana.pos.system.repository.ItemRepo;
 import com.rusiruchapana.pos.system.service.ItemService;
 import com.rusiruchapana.pos.system.util.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
@@ -61,6 +64,16 @@ public class ItemServiceImpl implements ItemService {
                 inactiveItemsCount
         );
         return countOfActiveStatusInItems;
+    }
+
+    @Override
+    public PaginatedItemsResponseDTO getPaginatedItems(int page, int size) {
+        Page<Item> items = itemRepo.findAll(PageRequest.of(page,size));
+        PaginatedItemsResponseDTO paginatedItemsResponseDTO = new PaginatedItemsResponseDTO(
+                itemMapper.pageEntityToDTO(items),
+                (double) itemRepo.count()
+        );
+        return paginatedItemsResponseDTO;
     }
 
 

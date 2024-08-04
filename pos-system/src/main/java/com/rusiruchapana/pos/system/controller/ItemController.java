@@ -3,6 +3,7 @@ package com.rusiruchapana.pos.system.controller;
 import com.rusiruchapana.pos.system.dto.request.ItemRequestDTO;
 import com.rusiruchapana.pos.system.dto.response.CountOfActiveStatusInItems;
 import com.rusiruchapana.pos.system.dto.response.ItemResponseDTO;
+import com.rusiruchapana.pos.system.dto.response.PaginatedItemsResponseDTO;
 import com.rusiruchapana.pos.system.service.ItemService;
 import com.rusiruchapana.pos.system.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,18 @@ public class ItemController {
         CountOfActiveStatusInItems count = itemService.activeInactiveCount();
         return new ResponseEntity<>(
                 new StandardResponse(200L,"Counts",count),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping(path = "/items-paginated" , params = {"page","size"})
+    public ResponseEntity<StandardResponse> getItemsPaginatedly(
+            @RequestParam("page")int page ,
+            @RequestParam("size")int size)
+    {
+        PaginatedItemsResponseDTO paginatedItemsResponseDTO = itemService.getPaginatedItems(page,size);
+        return new ResponseEntity<>(
+                new StandardResponse(200L, "Succesfully get.", paginatedItemsResponseDTO),
                 HttpStatus.OK
         );
     }
