@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -36,4 +37,7 @@ public class Customer {
 
     @Column(name = "customer_active",nullable = false)
     private Boolean activeStatus;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders;
 }
