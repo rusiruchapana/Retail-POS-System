@@ -1,6 +1,6 @@
-package com.practise.demo.dto.request;
+package com.example.demo.dto.response;
 
-import com.practise.demo.enums.MeasuringUnits;
+import com.example.demo.enums.MeasuringUnit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemResquestDTO {
+public class ItemResponseDTO {
 
+    private Long itemId;
     private String itemName;
-    private MeasuringUnits measuringUnit;
+    private MeasuringUnit measuringUnit;
     private Double balanceQty;
     private Double suplierPrice;
     private Double sellingPrice;
+    private Boolean activeStatus;
 }

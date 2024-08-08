@@ -1,6 +1,6 @@
-package com.practise.demo.entity;
+package com.example.demo.entity;
 
-import com.practise.demo.enums.MeasuringUnits;
+import com.example.demo.enums.MeasuringUnit;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "item_table")
+@Table(name = "item_name")
 public class Item {
 
     @Id
@@ -21,7 +21,7 @@ public class Item {
     private String itemName;
 
     @Column(nullable = false)
-    private MeasuringUnits measuringUnit;
+    private MeasuringUnit measuringUnit;
 
     @Column(nullable = false)
     private Double balanceQty;
@@ -34,4 +34,5 @@ public class Item {
 
     @Column(nullable = false)
     private Boolean activeStatus;
+
 }
