@@ -23,9 +23,12 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping(path = "/create")
-    public ItemResponseDTO createItem( @RequestBody ItemRequestDTO itemRequestDTO){
+    public ResponseEntity<StandardResponse> createItem( @RequestBody ItemRequestDTO itemRequestDTO){
         ItemResponseDTO itemResponseDTO = itemService.create(itemRequestDTO);
-        return itemResponseDTO;
+        return new ResponseEntity<>(
+                new StandardResponse(201L, "Succesfully created.", itemResponseDTO),
+                HttpStatus.CREATED
+        );
     }
 
 }
