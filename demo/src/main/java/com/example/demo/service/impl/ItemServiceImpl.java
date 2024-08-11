@@ -11,6 +11,8 @@ import com.example.demo.util.map.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemServiceImpl implements ItemService {
 
@@ -31,4 +33,13 @@ public class ItemServiceImpl implements ItemService {
             ItemResponseDTO itemResponseDTO = itemMapper.entityToDto(item);
             return itemResponseDTO;
     }
+
+    @Override
+    public List<ItemResponseDTO> readAll() {
+        List<Item> items = itemRepo.findAll();
+        List<ItemResponseDTO> itemResponseDTOS = itemMapper.entityToDto(items);
+        return itemResponseDTOS;
+    }
+
+
 }
