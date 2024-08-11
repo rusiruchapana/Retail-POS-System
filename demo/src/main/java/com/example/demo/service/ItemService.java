@@ -12,4 +12,6 @@ public interface ItemService {
 
 
     List<ItemResponseDTO> readAll();
+
+    ItemResponseDTO readById(Long itemId);
 }

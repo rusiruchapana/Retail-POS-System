@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -39,6 +40,13 @@ public class ItemServiceImpl implements ItemService {
         List<Item> items = itemRepo.findAll();
         List<ItemResponseDTO> itemResponseDTOS = itemMapper.entityToDto(items);
         return itemResponseDTOS;
+    }
+
+    @Override
+    public ItemResponseDTO readById(Long itemId) {
+        Optional<Item> item = itemRepo.findById( itemId);
+        ItemResponseDTO itemResponseDTO = itemMapper.entityToDto(item.get());
+        return itemResponseDTO;
     }
 
 

@@ -40,4 +40,13 @@ public class ItemController {
         );
     }
 
+    @GetMapping(path = "/readById", params = "id")
+    public ResponseEntity<StandardResponse> readByIdItem(@RequestParam("id") Long itemId){
+        ItemResponseDTO itemResponseDTO = itemService.readById(itemId);
+        return new ResponseEntity<>(
+                new StandardResponse(200L,"Succesful",itemResponseDTO),
+                HttpStatus.OK
+        );
+    }
+
 }
