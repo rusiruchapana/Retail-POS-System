@@ -59,6 +59,15 @@ public class ItemController {
         );
     }
 
+    @DeleteMapping(path = "/delete" , params = "id")
+    public ResponseEntity<StandardResponse> deleteItem(@RequestParam("id") Long itemId){
+        String msg = itemService.deleteItem(itemId);
+        return new ResponseEntity<>(
+                new StandardResponse(200L,"Succesful",msg),
+                HttpStatus.OK
+        );
+    }
+
 
 
 }

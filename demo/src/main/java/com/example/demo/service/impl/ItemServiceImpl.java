@@ -80,5 +80,16 @@ public class ItemServiceImpl implements ItemService {
 
     }
 
+    @Override
+    public String deleteItem(Long itemId) {
+        Optional<Item> item = itemRepo.findById(itemId);
+        if(item.isPresent()){
+            itemRepo.deleteById(itemId);
+            return "Succesfully deleted.";
+        }else {
+            throw new NotFoundException("Not found in db.");
+        }
+    }
+
 
 }

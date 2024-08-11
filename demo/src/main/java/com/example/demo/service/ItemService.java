@@ -18,4 +18,6 @@ public interface ItemService {
 
 
     ItemResponseDTO updateItem(UpdateItemRequestDTO updateItemRequestDTO, Long itemId);
+
+    String deleteItem(Long itemId);
 }
