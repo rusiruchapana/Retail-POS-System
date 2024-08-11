@@ -2,9 +2,11 @@ package com.example.demo.service.impl;
 
 
 import com.example.demo.dto.request.ItemRequestDTO;
+import com.example.demo.dto.request.UpdateItemRequestDTO;
 import com.example.demo.dto.response.ItemResponseDTO;
 import com.example.demo.entity.Item;
 import com.example.demo.enums.MeasuringUnit;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.ItemRepo;
 import com.example.demo.service.ItemService;
 import com.example.demo.util.map.ItemMapper;
@@ -16,6 +18,8 @@ import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements ItemService {
+
+
 
     @Autowired
     private ItemRepo itemRepo;
@@ -45,8 +49,35 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemResponseDTO readById(Long itemId) {
         Optional<Item> item = itemRepo.findById( itemId);
-        ItemResponseDTO itemResponseDTO = itemMapper.entityToDto(item.get());
-        return itemResponseDTO;
+        if(item.isPresent()){
+            throw new NotFoundException("Not found in the db.");
+        }else{
+            ItemResponseDTO itemResponseDTO = itemMapper.entityToDto(item.get());
+            return itemResponseDTO;
+        }
+
+    }
+
+    @Override
+    public ItemResponseDTO updateItem(UpdateItemRequestDTO updateItemRequestDTO, Long itemId) {
+        Optional<Item> item = itemRepo.findById(itemId);
+        if(item.isPresent()){
+            Item item1 = item.get();
+            item1.setItemName(updateItemRequestDTO.getItemName());
+            item1.setMeasuringUnit(updateItemRequestDTO.getMeasuringUnit());
+            item1.setBalanceQty(updateItemRequestDTO.getBalanceQty());
+            item1.setSuplierPrice(updateItemRequestDTO.getSuplierPrice());
+            item1.setSellingPrice(updateItemRequestDTO.getSellingPrice());
+            item1.setActiveStatus(updateItemRequestDTO.getActiveStatus());
+
+            itemRepo.save(item1);
+            ItemResponseDTO itemResponseDTO = itemMapper.entityToDto(item1);
+            return itemResponseDTO;
+
+        }else {
+            throw new NotFoundException("Not found in db.");
+        }
+
     }
 
 

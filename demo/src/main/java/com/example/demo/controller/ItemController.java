@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.dto.request.ItemRequestDTO;
+import com.example.demo.dto.request.UpdateItemRequestDTO;
 import com.example.demo.dto.response.ItemResponseDTO;
 import com.example.demo.entity.Item;
 import com.example.demo.service.ItemService;
@@ -48,5 +49,16 @@ public class ItemController {
                 HttpStatus.OK
         );
     }
+
+    @PutMapping(path = "/update", params = "id")
+    public ResponseEntity<StandardResponse> updateItem(@RequestBody UpdateItemRequestDTO updateItemRequestDTO, @RequestParam("id") Long itemId){
+        ItemResponseDTO itemResponseDTO = itemService.updateItem(updateItemRequestDTO , itemId);
+        return new ResponseEntity<>(
+                new StandardResponse(200L,"Succesful",itemResponseDTO),
+                HttpStatus.OK
+        );
+    }
+
+
 
 }
