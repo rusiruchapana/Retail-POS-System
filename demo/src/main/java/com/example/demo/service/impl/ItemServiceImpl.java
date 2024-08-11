@@ -4,6 +4,7 @@ package com.example.demo.service.impl;
 import com.example.demo.dto.request.ItemRequestDTO;
 import com.example.demo.dto.request.UpdateItemRequestDTO;
 import com.example.demo.dto.response.ItemResponseDTO;
+import com.example.demo.dto.response.PaginatedItemResponseDTO;
 import com.example.demo.entity.Item;
 import com.example.demo.enums.MeasuringUnit;
 import com.example.demo.exception.NotFoundException;
@@ -11,8 +12,11 @@ import com.example.demo.repository.ItemRepo;
 import com.example.demo.service.ItemService;
 import com.example.demo.util.map.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,6 +93,17 @@ public class ItemServiceImpl implements ItemService {
         }else {
             throw new NotFoundException("Not found in db.");
         }
+    }
+
+    @Override
+    public PaginatedItemResponseDTO getItemsPaginatedly(int page, int size) {
+
+        Page<Item> pageItems = itemRepo.findAll((PageRequest.of(page, size)));
+        PaginatedItemResponseDTO paginatedItemResponseDTO = new PaginatedItemResponseDTO(
+                itemMapper.entityToDto(pageItems.getContent()),
+                itemRepo.count()
+        );
+        return paginatedItemResponseDTO;
     }
 
 

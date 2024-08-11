@@ -5,6 +5,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.request.ItemRequestDTO;
 import com.example.demo.dto.request.UpdateItemRequestDTO;
 import com.example.demo.dto.response.ItemResponseDTO;
+import com.example.demo.dto.response.PaginatedItemResponseDTO;
 import com.example.demo.entity.Item;
 import com.example.demo.service.ItemService;
 import com.example.demo.util.StandardResponse;
@@ -64,6 +65,15 @@ public class ItemController {
         String msg = itemService.deleteItem(itemId);
         return new ResponseEntity<>(
                 new StandardResponse(200L,"Succesful",msg),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping(path = "/getItemsPageably" , params = {"page","size"})
+    public ResponseEntity<StandardResponse> getItemsPageably(@RequestParam("page") int page , @RequestParam("size") int size){
+        PaginatedItemResponseDTO paginatedItemResponseDTO = itemService.getItemsPaginatedly(page,size);
+        return new ResponseEntity<>(
+                new StandardResponse(200L, "Succesful", paginatedItemResponseDTO),
                 HttpStatus.OK
         );
     }
