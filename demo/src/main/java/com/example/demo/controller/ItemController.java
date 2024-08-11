@@ -78,6 +78,13 @@ public class ItemController {
         );
     }
 
-
+    @GetMapping(path = "/getItemsPageablyUsingStatus" , params = {"page","size","status"})
+    public ResponseEntity<StandardResponse> getItemsPageablyUsingStatus(@RequestParam("page") int page , @RequestParam("size") int size, @RequestParam("status") Boolean activeStaus){
+        PaginatedItemResponseDTO paginatedItemResponseDTO = itemService.getItemsPaginatedlyUsingStatus(page,size,activeStaus);
+        return new ResponseEntity<>(
+                new StandardResponse(200L, "Succesful", paginatedItemResponseDTO),
+                HttpStatus.OK
+        );
+    }
 
 }

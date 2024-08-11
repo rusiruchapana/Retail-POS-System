@@ -23,4 +23,6 @@ public interface ItemService {
     String deleteItem(Long itemId);
 
     PaginatedItemResponseDTO getItemsPaginatedly(int page, int size);
+
+    PaginatedItemResponseDTO getItemsPaginatedlyUsingStatus(int page, int size, Boolean activeStaus);
 }
