@@ -38,6 +38,7 @@ public class Customer {
     @Column(name = "customer_active",nullable = false)
     private Boolean activeStatus;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy="customer")
     private Set<Order> orders;
+
 }
